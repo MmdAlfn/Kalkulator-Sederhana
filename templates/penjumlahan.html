@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Penjumlahan</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .card {
+        width: 400px;
+        padding: 20px;
+        text-align: center;
+      }
+      .btn-group {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    </style>
+
+    <script>
+      $(document).ready(function () {});
+
+      function penjumlahan() {
+        let angka1 = $("#input1").val();
+        let angka2 = $("#input2").val();
+
+        if (angka1 === "" || angka2 === "") {
+          alert("Masukkan Angka!");
+        } else {
+          angka1 = parseFloat(angka1);
+          angka2 = parseFloat(angka2);
+
+          $.ajax({
+          type: "POST",
+          url: "/result",
+          contentType: "application/json",
+          data: JSON.stringify({ angka1: angka1, angka2: angka2 }),
+          success: function (response) {
+            alert("Hasil Penjumlahan = " + response.Hasil);
+          },
+        });
+        }
+      }
+
+      function next() {
+        window.location.href = "/pengurangan";
+      }
+
+      function reset() {
+        $("#input1").val("");
+        $("#input2").val("");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h5 class="card-title">Penjumlahan</h5>
+        <div class="form-group">
+          <label>Angka 1:</label>
+          <input type="number" class="form-control" id="input1" />
+        </div>
+        <div class="form-group">
+          <label>Angka 2:</label>
+          <input type="number" class="form-control" id="input2" />
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" onclick="penjumlahan()">
+            Submit
+          </button>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" onclick="next()">
+            Next
+          </button>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger" onclick="reset()">
+            Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
